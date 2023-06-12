@@ -1,7 +1,7 @@
 cat("\014")  
 # Importation des données
 data=read.csv("stat_acc_V3.csv", header=TRUE, sep=";")
-
+data$date <- as.Date(data$date)
 
 #### DESCR_AGGLO
 agglo=levels(factor(data$descr_agglo))
