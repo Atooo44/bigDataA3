@@ -154,3 +154,10 @@ cat(output)
 sink()
 
 data
+
+#### Histogrammes des accidents en fonction de l'âge
+hist(data$age, xlab="Age du conducteur", ylab="Nombre d'accidents", main="Quantité d'accidents en fonction de l'âge")
+hist(data$age, xlab="Age du conducteur", ylab="Nombre d'accidents", main="Quantité d'accidents en fonction de l'âge", breaks = c(0, 20, 40, 60, 80, 100, 120, 140))
+hist(data$age, xlab="Age du conducteur", ylab="Nombre d'accidents", main="Quantité d'accidents en fonction de l'âge", breaks = c(10, 30, 50, 70, 90, 110, 130))
+
+
