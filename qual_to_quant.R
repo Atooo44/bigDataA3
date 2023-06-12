@@ -159,5 +159,7 @@ data
 hist(data$age, xlab="Age du conducteur", ylab="Nombre d'accidents", main="Quantité d'accidents en fonction de l'âge")
 hist(data$age, xlab="Age du conducteur", ylab="Nombre d'accidents", main="Quantité d'accidents en fonction de l'âge", breaks = c(0, 20, 40, 60, 80, 100, 120, 140))
 hist(data$age, xlab="Age du conducteur", ylab="Nombre d'accidents", main="Quantité d'accidents en fonction de l'âge", breaks = c(10, 30, 50, 70, 90, 110, 130))
+hist(data$age, xlab="Age du conducteur", ylab="Nombre d'accidents", main="Quantité d'accidents en fonction de l'âge", breaks = c(10,20,30,40,50,60,70,80,90,100,110,120,130))
 
-
+### Histogramme des accidents en fonction des mois de l'année
+hist(data$date, xlab="Mois", ylab="Fréquence d'accidents", main="Moyenne mensuelle des accidents", breaks = c(as.Date("2009-01-01"), as.Date("2009-02-01"), as.Date("2009-03-01"), as.Date("2009-04-01"), as.Date("2009-05-01"), as.Date("2009-06-01"), as.Date("2009-07-01"), as.Date("2009-08-01"), as.Date("2009-09-01"), as.Date("2009-10-01"), as.Date("2009-11-01"), as.Date("2009-12-01"), as.Date("2009-12-31")))
