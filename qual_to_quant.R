@@ -341,3 +341,4 @@ map<-leaflet(data) %>%
   )
 map
 mapshot(map, file="heatmap.png", type="png")
+PCA(data[,6:18], graph = TRUE)
