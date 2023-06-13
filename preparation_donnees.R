@@ -1,7 +1,7 @@
 data <- read.csv("stat_acc_V3.csv", header=TRUE, sep=";", na.strings = "NULL")
 
 # dates deja formatees dans le csv
-data$date <- as.Date(data$date)
+data$date <- as.POSIXlt(data$date)
 
 data$id_code_insee <- as.integer(data$id_code_insee)
 # le warning message : some strings don't represent numbers. Those are correctly changed to NA
