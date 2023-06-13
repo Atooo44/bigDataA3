@@ -185,7 +185,7 @@ for (i in centre_val_loire){
 dev.off()
 
 #### REGION CORSE
-corse<-c(99)
+corse<-c(20)
 png(file = "map_region/map_corse.png")
 adm_fr <- getData('GADM', country='FRA', level=1) 
 plot(adm_fr)
