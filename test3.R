@@ -8,26 +8,32 @@ acc <- read.csv("stat_acc_V3.csv", header=TRUE, sep=";")
 # representation graphique : nb accidents en fonction des conditions atmosphériques
 
 x<-data.frame(table(acc$descr_athmo))
-graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5)
-graph + labs(title="Nombre d'accidents en fonction des conditions atmosphériques",
+graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5) + labs(title="Nombre d'accidents en fonction des conditions atmosphériques",
              x="Conditions atmosphériques",
              y="Nombre d'accidents")
+graph
+ggsave("conditions_atmospheriques.png", graph, bg="white", scale=3)
+
 
 # representation graphique : nb accidents en fonction de la description de la surface
 
 x<-data.frame(table(acc$descr_etat_surf))
-graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5)
-graph + labs(title="Nombre d'accidents en fonction de la description de la surface",
+graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5) + labs(title="Nombre d'accidents en fonction de la description de la surface",
              x="Surface",
              y="Nombre d'accidents")
+graph
+ggsave("description_surface.png", graph, bg="white", scale=2)
+
 
 # representation graphique : nb accidents selon la gravité
 
 x<-data.frame(table(acc$descr_grav))
-graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5)
-graph + labs(title="Nombre d'accidents selon la gravité",
+graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5) + labs(title="Nombre d'accidents selon la gravité",
              x="Gravité",
              y="Nombre d'accidents")
+graph
+ggsave("gravite.png", graph, bg="white", scale=2)
+
 
 # representation graphique : nb accidents par tranches d'heure
 install.packages("stringr")
@@ -52,17 +58,16 @@ print(heure2)
 
 x<-data.frame(table(heure2))
 x
-graph <- ggplot(data=x, aes(x=heure2, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5)
-graph + labs(title="Nombre d'accidents par tranches d'heure",
+graph <- ggplot(data=x, aes(x=heure2, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5) + labs(title="Nombre d'accidents par tranches d'heure",
              x="Heure",
              y="Nombre d'accidents")
+graph
+ggsave("heure.png", graph, bg="white", scale=2)
 
 # representation graphique : nb accidents par departement (2 premiers chiffres code insee)
 x<-data.frame(table(as.integer(acc$id_code_insee/1000)))
 graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5) + labs(title="Nombre d'accidents par département",
              x="Département",
              y="Nombre d'accidents")
+graph
 ggsave("accidents_departements.png", graph, bg="white", scale=4)
-
-#pour save
-#ggsave(filename, graph)
