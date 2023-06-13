@@ -49,6 +49,7 @@ hist(data$date, xlab="Mois", ylab="Fréquence d'accidents", main="Moyenne mensue
 library("raster")
 
 ### Création des cartes par départements et exportation en png
+code_insee_char<-as.character(data$id_code_insee)
 for (i in 10:99){
   # Contours administratifs
   filename<-paste("map_departement/map", i, sep="")
@@ -57,8 +58,7 @@ for (i in 10:99){
   adm_fr <- getData('GADM', country='FRA', level=1) 
   plot(adm_fr)
   
-  # Simulons les points ! (rnorm sert à simuler des valeurs : pas d'inquiétude !)
-  x <- data$longitude[startsWith(data$id_code_insee, as.character(i))]; y <- data$latitude[startsWith(data$id_code_insee, as.character(i))]
+  x <- data$longitude[startsWith(code_insee_char, as.character(i))]; y <- data$latitude[startsWith(code_insee_char, as.character(i))]
   points(x,y,col="red",cex=0.5,pch=16)
   dev.off()
 }
@@ -71,7 +71,7 @@ png(file = "map_region/map_auvergne_rhone_alpes.png")
 adm_fr <- getData('GADM', country='FRA', level=1) 
 plot(adm_fr)
 for (i in auvergne_rhone_alpes){
-  x <- data$longitude[startsWith(data$id_code_insee, as.character(i))]; y <- data$latitude[startsWith(data$id_code_insee, as.character(i))]
+  x <- data$longitude[startsWith(code_insee_char, as.character(i))]; y <- data$latitude[startsWith(code_insee_char, as.character(i))]
   points(x,y,col="red",cex=0.5,pch=16)
 }
 dev.off()
@@ -82,7 +82,7 @@ png(file = "map_region/map_bourgogne_franche_comte.png")
 adm_fr <- getData('GADM', country='FRA', level=1) 
 plot(adm_fr)
 for (i in bourgogne_franche_comte){
-  x <- data$longitude[startsWith(data$id_code_insee, as.character(i))]; y <- data$latitude[startsWith(data$id_code_insee, as.character(i))]
+  x <- data$longitude[startsWith(code_insee_char, as.character(i))]; y <- data$latitude[startsWith(code_insee_char, as.character(i))]
   points(x,y,col="red",cex=0.5,pch=16)
 }
 dev.off()
@@ -93,7 +93,7 @@ png(file = "map_region/map_bretagne.png")
 adm_fr <- getData('GADM', country='FRA', level=1) 
 plot(adm_fr)
 for (i in bretagne){
-  x <- data$longitude[startsWith(data$id_code_insee, as.character(i))]; y <- data$latitude[startsWith(data$id_code_insee, as.character(i))]
+  x <- data$longitude[startsWith(code_insee_char, as.character(i))]; y <- data$latitude[startsWith(code_insee_char, as.character(i))]
   points(x,y,col="red",cex=0.5,pch=16)
 }
 dev.off()
@@ -104,7 +104,7 @@ png(file = "map_region/map_centre_val_loire.png")
 adm_fr <- getData('GADM', country='FRA', level=1) 
 plot(adm_fr)
 for (i in centre_val_loire){
-  x <- data$longitude[startsWith(data$id_code_insee, as.character(i))]; y <- data$latitude[startsWith(data$id_code_insee, as.character(i))]
+  x <- data$longitude[startsWith(code_insee_char, as.character(i))]; y <- data$latitude[startsWith(code_insee_char, as.character(i))]
   points(x,y,col="red",cex=0.5,pch=16)
 }
 dev.off()
@@ -115,7 +115,7 @@ png(file = "map_region/map_corse.png")
 adm_fr <- getData('GADM', country='FRA', level=1) 
 plot(adm_fr)
 for (i in corse){
-  x <- data$longitude[startsWith(data$id_code_insee, as.character(i))]; y <- data$latitude[startsWith(data$id_code_insee, as.character(i))]
+  x <- data$longitude[startsWith(code_insee_char, as.character(i))]; y <- data$latitude[startsWith(code_insee_char, as.character(i))]
   points(x,y,col="red",cex=0.5,pch=16)
 }
 dev.off()
@@ -126,7 +126,7 @@ png(file = "map_region/map_grand_est.png")
 adm_fr <- getData('GADM', country='FRA', level=1) 
 plot(adm_fr)
 for (i in grand_est){
-  x <- data$longitude[startsWith(data$id_code_insee, as.character(i))]; y <- data$latitude[startsWith(data$id_code_insee, as.character(i))]
+  x <- data$longitude[startsWith(code_insee_char, as.character(i))]; y <- data$latitude[startsWith(code_insee_char, as.character(i))]
   points(x,y,col="red",cex=0.5,pch=16)
 }
 dev.off()
@@ -138,7 +138,7 @@ png(file = "map_region/map_haut_france.png")
 adm_fr <- getData('GADM', country='FRA', level=1) 
 plot(adm_fr)
 for (i in haut_france){
-  x <- data$longitude[startsWith(data$id_code_insee, as.character(i))]; y <- data$latitude[startsWith(data$id_code_insee, as.character(i))]
+  x <- data$longitude[startsWith(code_insee_char, as.character(i))]; y <- data$latitude[startsWith(code_insee_char, as.character(i))]
   points(x,y,col="red",cex=0.5,pch=16)
 }
 dev.off()
@@ -150,7 +150,7 @@ png(file = "map_region/map_ile_de_france.png")
 adm_fr <- getData('GADM', country='FRA', level=1) 
 plot(adm_fr)
 for (i in ile_france){
-  x <- data$longitude[startsWith(data$id_code_insee, as.character(i))]; y <- data$latitude[startsWith(data$id_code_insee, as.character(i))]
+  x <- data$longitude[startsWith(code_insee_char, as.character(i))]; y <- data$latitude[startsWith(code_insee_char, as.character(i))]
   points(x,y,col="red",cex=0.5,pch=16)
 }
 dev.off()
@@ -161,7 +161,7 @@ png(file = "map_region/map_normandie.png")
 adm_fr <- getData('GADM', country='FRA', level=1) 
 plot(adm_fr)
 for (i in normandie){
-  x <- data$longitude[startsWith(data$id_code_insee, as.character(i))]; y <- data$latitude[startsWith(data$id_code_insee, as.character(i))]
+  x <- data$longitude[startsWith(code_insee_char, as.character(i))]; y <- data$latitude[startsWith(code_insee_char, as.character(i))]
   points(x,y,col="red",cex=0.5,pch=16)
 }
 dev.off()
@@ -173,7 +173,7 @@ png(file = "map_region/map_nouvelle_aquitaine.png")
 adm_fr <- getData('GADM', country='FRA', level=1) 
 plot(adm_fr)
 for (i in nouvelle_aquitaine){
-  x <- data$longitude[startsWith(data$id_code_insee, as.character(i))]; y <- data$latitude[startsWith(data$id_code_insee, as.character(i))]
+  x <- data$longitude[startsWith(code_insee_char, as.character(i))]; y <- data$latitude[startsWith(code_insee_char, as.character(i))]
   points(x,y,col="red",cex=0.5,pch=16)
 }
 dev.off()
@@ -184,7 +184,7 @@ png(file = "map_region/map_occitanie.png")
 adm_fr <- getData('GADM', country='FRA', level=1) 
 plot(adm_fr)
 for (i in occitanie){
-  x <- data$longitude[startsWith(data$id_code_insee, as.character(i))]; y <- data$latitude[startsWith(data$id_code_insee, as.character(i))]
+  x <- data$longitude[startsWith(code_insee_char, as.character(i))]; y <- data$latitude[startsWith(code_insee_char, as.character(i))]
   points(x,y,col="red",cex=0.5,pch=16)
 }
 dev.off()
@@ -196,7 +196,7 @@ png(file = "map_region/map_pays_de_la_loire.png")
 adm_fr <- getData('GADM', country='FRA', level=1) 
 plot(adm_fr)
 for (i in pdl){
-  x <- data$longitude[startsWith(data$id_code_insee, as.character(i))]; y <- data$latitude[startsWith(data$id_code_insee, as.character(i))]
+  x <- data$longitude[startsWith(code_insee_char, as.character(i))]; y <- data$latitude[startsWith(code_insee_char, as.character(i))]
   points(x,y,col="red",cex=0.5,pch=16)
 }
 dev.off()
@@ -207,7 +207,7 @@ png(file = "map_region/map_provence_alpes_cote_azur.png")
 adm_fr <- getData('GADM', country='FRA', level=1) 
 plot(adm_fr)
 for (i in paca){
-  x <- data$longitude[startsWith(data$id_code_insee, as.character(i))]; y <- data$latitude[startsWith(data$id_code_insee, as.character(i))]
+  x <- data$longitude[startsWith(code_insee_char, as.character(i))]; y <- data$latitude[startsWith(code_insee_char, as.character(i))]
   points(x,y,col="red",cex=0.5,pch=16)
 }
 dev.off()
