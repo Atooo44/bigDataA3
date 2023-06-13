@@ -6,7 +6,7 @@ library(ggplot2)
 # representation graphique : nb accidents en fonction des conditions atmosphériques
 
 x<-data.frame(table(data$descr_athmo))
-graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5) + labs(title="Nombre d'accidents en fonction des conditions atmosphériques",
+graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5) + labs(title="Nombre d'accidents en fonction des conditions atmosphériques (voir type_atmosphere.txt pour la correspondance)",
              x="Conditions atmosphériques",
              y="Nombre d'accidents")
 graph
@@ -15,7 +15,7 @@ ggsave("conditions_atmospheriques.png", graph, bg="white", scale=3)
 # representation graphique : nb accidents en fonction de la description de la surface
 
 x<-data.frame(table(data$descr_etat_surf))
-graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5) + labs(title="Nombre d'accidents en fonction de la description de la surface",
+graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5) + labs(title="Nombre d'accidents en fonction de la description de la surface (voir etat_surface.txt pour la correspondance)",
              x="Surface",
              y="Nombre d'accidents")
 graph
@@ -23,8 +23,8 @@ ggsave("description_surface.png", graph, bg="white", scale=2)
 
 # representation graphique : nb accidents selon la gravité
 
-x<-data.frame(table(data$descr_grav))
-graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5) + labs(title="Nombre d'accidents selon la gravité",
+x<-data.frame(table(data$descr_grave))
+graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5) + labs(title="Nombre d'accidents selon la gravité (voir gravite_accident.txt pour correspondance)",
              x="Gravité",
              y="Nombre d'accidents")
 graph
