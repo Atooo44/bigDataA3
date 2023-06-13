@@ -23,7 +23,7 @@ ggsave("description_surface.png", graph, bg="white", scale=2)
 
 # representation graphique : nb accidents selon la gravité
 
-x<-data.frame(table(data$descr_grave))
+x<-data.frame(table(data$descr_grav))
 graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5) + labs(title="Nombre d'accidents selon la gravité (voir gravite_accident.txt pour correspondance)",
              x="Gravité",
              y="Nombre d'accidents")
