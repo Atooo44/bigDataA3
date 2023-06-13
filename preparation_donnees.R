@@ -7,7 +7,7 @@ data$id_code_insee <- as.integer(data$id_code_insee)
 # le warning message : some strings don't represent numbers. Those are correctly changed to NA
 
 # Change les valeurs nulles par 0
-data$id_code_insee[is.na(data$id_code_insee)] <- 0 
+data$id_code_insee[is.na(data$id_code_insee)] <- 99
 
 data$an_nais <- as.integer(data$an_nais)
 
