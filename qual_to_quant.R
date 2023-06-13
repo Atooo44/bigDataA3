@@ -327,3 +327,17 @@ for (i in paca){
   points(x,y,col="red",cex=0.5,pch=16)
 }
 dev.off()
+
+
+library(mapview)
+library(leaflet)
+library(leaflet.extras)
+map<-leaflet(data) %>%
+  addProviderTiles(providers$CartoDB.DarkMatter) %>%
+  setView(lng = 2.2, lat = 46.2, zoom = 5) %>%
+  addHeatmap(
+    lng = ~longitude, lat = ~latitude,
+    blur = 20, max = 0.05, radius = 15
+  )
+map
+mapshot(map, file="heatmap.png", type="png")
