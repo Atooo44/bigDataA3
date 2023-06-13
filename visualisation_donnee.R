@@ -71,7 +71,8 @@ hist(data$age, xlab="Age du conducteur", ylab="Nombre d'dataidents", main="Quant
 hist(data$age, xlab="Age du conducteur", ylab="Nombre d'dataidents", main="Quantité d'dataidents en fonction de l'âge", breaks = c(10,20,30,40,50,60,70,80,90,100,110,120,130))
 
 # Histogramme des dataidents en fonction des mois de l'année
-hist(data$date, xlab="Mois", ylab="Fréquence d'dataidents", main="Moyenne mensuelle des dataidents", breaks = c(as.Date("2009-01-01"), as.Date("2009-02-01"), as.Date("2009-03-01"), as.Date("2009-04-01"), as.Date("2009-05-01"), as.Date("2009-06-01"), as.Date("2009-07-01"), as.Date("2009-08-01"), as.Date("2009-09-01"), as.Date("2009-10-01"), as.Date("2009-11-01"), as.Date("2009-12-01"), as.Date("2009-12-31")))
+date_reformat<-as.Date(data$date)
+hist(date_reformat, xlab="Mois", ylab="Fréquence d'dataidents", main="Moyenne mensuelle des dataidents", breaks = c(as.Date("2009-01-01"), as.Date("2009-02-01"), as.Date("2009-03-01"), as.Date("2009-04-01"), as.Date("2009-05-01"), as.Date("2009-06-01"), as.Date("2009-07-01"), as.Date("2009-08-01"), as.Date("2009-09-01"), as.Date("2009-10-01"), as.Date("2009-11-01"), as.Date("2009-12-01"), as.Date("2009-12-31")))
 
 library("raster")
 
