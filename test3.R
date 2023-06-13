@@ -59,10 +59,10 @@ graph + labs(title="Nombre d'accidents par tranches d'heure",
 
 # representation graphique : nb accidents par departement (2 premiers chiffres code insee)
 x<-data.frame(table(as.integer(acc$id_code_insee/1000)))
-graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5)
-graph + labs(title="Nombre d'accidents par département",
+graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5) + labs(title="Nombre d'accidents par département",
              x="Département",
              y="Nombre d'accidents")
+ggsave("accidents_departements.png", graph, bg="white", scale=4)
 
 #pour save
 #ggsave(filename, graph)
