@@ -71,3 +71,47 @@ graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="
              y="Nombre d'accidents")
 graph
 ggsave("accidents_departements.png", graph, bg="white", scale=4)
+
+
+#Construire des séries chronologiques sur l’évolution du nombre d’accidents par mois et semaines sur l’ensemble de la période
+
+# l'année est uniquement 2009 donc on peut passer par cette méthode
+
+# recuperation des mois, jours et année
+date_decoupe <- str_split(data$date, " ")
+mois = c()
+for(i in 1:length(date_decoupe)){
+  print(date_decoupe[[i]][1])
+  mois <- append(mois, date_decoupe[[i]][1])
+}
+print(mois)
+# recuperation du mois uniquement
+mois_decoupe <- str_split(mois, "-")
+mois2 = c()
+for(i in 1:length(mois_decoupe)){
+  print(mois_decoupe[[i]][2])
+  mois2 <- append(mois2, mois_decoupe[[i]][2])
+}
+print(mois2)
+
+x<-data.frame(table(mois2))
+x
+graph <- ggplot(data=x, aes(x=mois2, y=Freq, group=1)) +   geom_line(linewidth=1, color="darkseagreen") + geom_point() + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5, color="blue") + labs(title="Evolution du nombre d'accidents par mois",
+                                                                                                                                                                          x="Mois",
+                                                                                                                                                                          y="Nombre d'accidents")
+graph
+ggsave("mois.png", graph, bg="white", scale=2)
+
+# recuperation de la semaine
+date <- mois
+week <- strftime(mois, "%W")
+#Week number of the year (Monday as the first day of the week) as a decimal number. All days in a new year preceding the first Monday are considered to be in week 0.
+print(week)
+
+x<-data.frame(table(week))
+x
+graph <- ggplot(data=x, aes(x=week, y=Freq, group=1)) +   geom_line(linewidth=1, color="darkseagreen") + geom_point() + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5, color="blue") + labs(title="Evolution du nombre d'accidents par semaine",
+                                                                                                                                                                                                                 x="Semaine",
+                                                                                                                                                                                                                 y="Nombre d'accidents")
+graph
+ggsave("semaine.png", graph, bg="white", scale=3)
