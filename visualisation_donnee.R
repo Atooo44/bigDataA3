@@ -3,31 +3,31 @@ library(ggplot2)
 #install.packages("stringr")
 
 
-# representation graphique : nb dataidents en fonction des conditions atmosphériques
+# representation graphique : nb accidents en fonction des conditions atmosphériques
 
 x<-data.frame(table(data$descr_athmo))
 graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5)
-graph + labs(title="Nombre d'dataidents en fonction des conditions atmosphériques",
+graph + labs(title="Nombre d'accidents en fonction des conditions atmosphériques",
              x="Conditions atmosphériques",
-             y="Nombre d'dataidents")
+             y="Nombre d'accidents")
 
-# representation graphique : nb dataidents en fonction de la description de la surface
+# representation graphique : nb accidents en fonction de la description de la surface
 
 x<-data.frame(table(data$descr_etat_surf))
 graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5)
-graph + labs(title="Nombre d'dataidents en fonction de la description de la surface",
+graph + labs(title="Nombre d'accidents en fonction de la description de la surface",
              x="Surface",
-             y="Nombre d'dataidents")
+             y="Nombre d'accidents")
 
-# representation graphique : nb dataidents selon la gravité
+# representation graphique : nb accidents selon la gravité
 
 x<-data.frame(table(data$descr_grav))
 graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5)
-graph + labs(title="Nombre d'dataidents selon la gravité",
+graph + labs(title="Nombre d'accidents selon la gravité",
              x="Gravité",
-             y="Nombre d'dataidents")
+             y="Nombre d'accidents")
 
-# representation graphique : nb dataidents par tranches d'heure
+# representation graphique : nb accidents par tranches d'heure
 
 library(stringr)
 # recuperation de l'heure avec minute et seconde
@@ -50,29 +50,29 @@ print(heure2)
 x<-data.frame(table(heure2))
 x
 graph <- ggplot(data=x, aes(x=heure2, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5)
-graph + labs(title="Nombre d'dataidents par tranches d'heure",
+graph + labs(title="Nombre d'accidents par tranches d'heure",
              x="Heure",
-             y="Nombre d'dataidents")
+             y="Nombre d'accidents")
 
 
 
-# representation graphique : nb dataidents par departement (2 premiers chiffres code insee)
+# representation graphique : nb accidents par departement (2 premiers chiffres code insee)
 x<-data.frame(table(floor(data$id_code_insee/1000)))
 graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="steelblue") + theme_minimal() + geom_text(aes(label=Freq), vjust=-0.3, size=3.5)
-graph + labs(title="Nombre d'dataidents par département",
+graph + labs(title="Nombre d'accidents par département",
              x="Département",
-             y="Nombre d'dataidents")
+             y="Nombre d'accidents")
 
 
-# Histogrammes des dataidents en fonction de l'âge
-hist(data$age, xlab="Age du conducteur", ylab="Nombre d'dataidents", main="Quantité d'dataidents en fonction de l'âge")
-hist(data$age, xlab="Age du conducteur", ylab="Nombre d'dataidents", main="Quantité d'dataidents en fonction de l'âge", breaks = c(0, 20, 40, 60, 80, 100, 120, 140))
-hist(data$age, xlab="Age du conducteur", ylab="Nombre d'dataidents", main="Quantité d'dataidents en fonction de l'âge", breaks = c(10, 30, 50, 70, 90, 110, 130))
-hist(data$age, xlab="Age du conducteur", ylab="Nombre d'dataidents", main="Quantité d'dataidents en fonction de l'âge", breaks = c(10,20,30,40,50,60,70,80,90,100,110,120,130))
+# Histogrammes des accidents en fonction de l'âge
+hist(data$age, xlab="Age du conducteur", ylab="Nombre d'accidents", main="Quantité d'accidents en fonction de l'âge")
+hist(data$age, xlab="Age du conducteur", ylab="Nombre d'accidents", main="Quantité d'accidents en fonction de l'âge", breaks = c(0, 20, 40, 60, 80, 100, 120, 140))
+hist(data$age, xlab="Age du conducteur", ylab="Nombre d'accidents", main="Quantité d'accidents en fonction de l'âge", breaks = c(10, 30, 50, 70, 90, 110, 130))
+hist(data$age, xlab="Age du conducteur", ylab="Nombre d'accidents", main="Quantité d'accidents en fonction de l'âge", breaks = c(10,20,30,40,50,60,70,80,90,100,110,120,130))
 
-# Histogramme des dataidents en fonction des mois de l'année
+# Histogramme des accidents en fonction des mois de l'année
 date_reformat<-as.Date(data$date)
-hist(date_reformat, xlab="Mois", ylab="Fréquence d'dataidents", main="Moyenne mensuelle des dataidents", breaks = c(as.Date("2009-01-01"), as.Date("2009-02-01"), as.Date("2009-03-01"), as.Date("2009-04-01"), as.Date("2009-05-01"), as.Date("2009-06-01"), as.Date("2009-07-01"), as.Date("2009-08-01"), as.Date("2009-09-01"), as.Date("2009-10-01"), as.Date("2009-11-01"), as.Date("2009-12-01"), as.Date("2009-12-31")))
+hist(date_reformat, xlab="Mois", ylab="Fréquence d'accidents", main="Moyenne mensuelle des accidents", breaks = c(as.Date("2009-01-01"), as.Date("2009-02-01"), as.Date("2009-03-01"), as.Date("2009-04-01"), as.Date("2009-05-01"), as.Date("2009-06-01"), as.Date("2009-07-01"), as.Date("2009-08-01"), as.Date("2009-09-01"), as.Date("2009-10-01"), as.Date("2009-11-01"), as.Date("2009-12-01"), as.Date("2009-12-31")))
 
 library("raster")
 
