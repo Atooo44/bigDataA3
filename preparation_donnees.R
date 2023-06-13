@@ -131,7 +131,7 @@ grav=levels(factor(data$descr_grav))
 count=1
 output="CORRESPONDANCE GRAVITE"
 for (grav_type in grav) {
-  data$descr_grave[data$descr_grav %in% c(grav_type)]<-count
+  data$descr_grav[data$descr_grav %in% c(grav_type)]<-count
   output1<-paste(grav_type, count, sep=" = ")
   output<-paste(output, output1, sep="\n")
   count<-count+1
