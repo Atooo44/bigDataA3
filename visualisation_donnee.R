@@ -23,7 +23,7 @@ graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="
              x="Surface",
              y="Nombre d'accidents")
 graph
-ggsave("description_surface.png", graph, bg="white", scale=2)
+ggsave("description_surface.png", graph, bg="white", scale=2.5)
 
 # representation graphique : nb accidents selon la gravité
 
