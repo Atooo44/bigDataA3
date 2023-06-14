@@ -63,3 +63,155 @@ legend("bottomright", lwd=3, legend="Droite de régression linéaire", col="red"
 dev.off()
 summary(model2)
 anova(model2)
+
+#TABLEAUX CROISES ET TESTS D'INDEPENDANCE DU CHI2
+
+# condition de validité du khideux
+# Les valeurs de toutes les cases du tableau des effectifs doivent être supérieures à 5
+# Les pourcentages ne sont pas trop proche de zéro ou de 100%
+# Les données doivent être qualitatives
+
+# tableau croisé : Etude des relations entre variables qualitatives
+
+#DESRIPTION GRAVITE + DESCRIPTION MOTIF TRAJET
+t<-table(data$descr_grav,data$descr_motif_traj)
+addmargins(t) # pour avoir la somme
+prop.table(t) # frequence relative
+prop.table(t)*100 # frequence absolue (pourcentage)
+png("mosaicplot_gravite_motif_trajet.png")
+mosaicplot(t,
+           main="Gravité et motif trajet",
+           xlab="Gravité",
+           ylab="Motif trajet",
+           las=1, # labels horizontaux
+           shade=TRUE, # standardized residuals
+           off=10) # espacement entre les blocs
+dev.off()
+result <- chisq.test(t)
+result
+# valeur du khideux : X-squared
+# ddl : df
+
+result$observed # tableau d'origine
+result$expected # tableau d'indépendance ou tableau des effectifs théoriques --> tableau théorique
+result$residuals # tableau des résidus
+result$residuals^2 # tableau des écarts à l'indépendance
+
+#pvalue < 0.05 donc on rejette l'hypothèse d'indépendance --> les deux événements sont liés
+
+
+#http://mehdikhaneboubi.free.fr/stat/co/khi_deux_r.html
+#https://rstudio-pubs-static.s3.amazonaws.com/224337_f0de438bd82e4a769e55e039e33b6a0a.html#manipulation-du-dataframe
+#https://www.statology.org/how-to-read-chi-square-distribution-table/
+
+
+#AGE + LATITUDE
+t<-table(data$age,data$latitude)
+addmargins(t) # pour avoir la somme
+prop.table(t) # frequence relative
+prop.table(t)*100 # frequence absolue (pourcentage)
+result <- chisq.test(t)
+result
+# valeur du khideux : X-squared
+# ddl : df
+
+# p-value > 0.05, on conserve l'hypothèse d'indépendance --> les deux événements sont indépendants
+
+result$observed # tableau d'origine
+result$expected # tableau d'indépendance ou tableau des effectifs théoriques --> tableau théorique
+result$residuals # tableau des résidus
+result$residuals^2 # tableau des écarts à l'indépendance
+
+
+#ANNEE + CODE INSEE
+t<-table(data$an_nais,data$id_code_insee)
+addmargins(t) # pour avoir la somme
+prop.table(t) # frequence relative
+prop.table(t)*100 # frequence absolue (pourcentage)
+result <- chisq.test(t)
+result
+#Warning message: In chisq.test(t) : L’approximation du Chi-2 est peut-être incorrecte
+#mettre simulate.p.value=TRUE dans chisq.test()
+# valeur du khideux : X-squared
+# ddl : df
+
+result$observed # tableau d'origine
+result$expected # tableau d'indépendance ou tableau des effectifs théoriques --> tableau théorique
+result$residuals # tableau des résidus
+result$residuals^2 # tableau des écarts à l'indépendance
+
+#p-value < 0.05 donc on rejette l'hypothèse d'indépendance --> les deux événements sont liés
+
+#DESRIPTION GRAVITE + DESCRIPTION DISPO SECU
+t<-table(data$descr_grav,data$descr_dispo_secu)
+addmargins(t) # pour avoir la somme
+prop.table(t) # frequence relative
+prop.table(t)*100 # frequence absolue (pourcentage)
+png("mosaicplot_gravite_dispo_secu.png", width=1051, height=1051)
+mosaicplot(t,
+           main="Gravité et sécurité",
+           xlab="Gravité",
+           ylab="Sécurité",
+           las=1, # labels horizontaux
+           shade=TRUE, # standardized residuals
+           off=10) # espacement entre les blocs
+dev.off()
+result <- chisq.test(t)
+result
+# valeur du khideux : X-squared
+# ddl : df
+
+result$observed # tableau d'origine
+result$expected # tableau d'indépendance ou tableau des effectifs théoriques --> tableau théorique
+result$residuals # tableau des résidus
+result$residuals^2 # tableau des écarts à l'indépendance
+
+#p-value < 0.05 donc on rejette l'hypothèse d'indépendance --> les deux événements sont liés
+
+
+
+#DESRIPTION PLACE + DESCR MOTIF TRAJET
+t<-table(data$place,data$descr_motif_traj)
+addmargins(t) # pour avoir la somme
+prop.table(t) # frequence relative
+prop.table(t)*100 # frequence absolue (pourcentage)
+png("mosaicplot_place_motif_trajet.png", width=1051, height=1051)
+mosaicplot(t,
+           main="Nombre de places et motif trajet",
+           xlab="Place",
+           ylab="Motif trajet",
+           las=1, # labels horizontaux
+           shade=TRUE, # standardized residuals
+           off=10) # espacement entre les blocs
+dev.off()
+result <- chisq.test(t)
+result
+# valeur du khideux : X-squared
+# ddl : df
+
+result$observed # tableau d'origine
+result$expected # tableau d'indépendance ou tableau des effectifs théoriques --> tableau théorique
+result$residuals # tableau des résidus
+result$residuals^2 # tableau des écarts à l'indépendance
+
+#p-value < 0.05 donc on rejette l'hypothèse d'indépendance --> les deux événements sont liés
+
+
+
+
+#NUMERO VEHICULE + VILLE
+t<-table(data$num_veh,data$ville)
+addmargins(t) # pour avoir la somme
+prop.table(t) # frequence relative
+prop.table(t)*100 # frequence absolue (pourcentage)
+result <- chisq.test(t)
+result
+# valeur du khideux : X-squared
+# ddl : df
+
+result$observed # tableau d'origine
+result$expected # tableau d'indépendance ou tableau des effectifs théoriques --> tableau théorique
+result$residuals # tableau des résidus
+result$residuals^2 # tableau des écarts à l'indépendance
+
+# p-value = 1 > 0.05, on conserve l'hypothèse d'indépendance --> les deux événements sont indépendants
