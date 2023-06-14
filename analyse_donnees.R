@@ -1,0 +1,217 @@
+# https://adjectif.net/spip.php?article275
+# https://odr.inrae.fr/intranet/carto/cartowiki/index.php/Regression_lin%C3%A9aire_avec_R
+
+# IMPORTANT : exécuter visualisation_donnee.R avant
+
+# apres execution de visualisation des données, on a la variable mois2 qui stocke tous les mois
+
+# REGRESSION LINEAIRE ACCIDENTS MOIS
+donnee <- data.frame(table(mois2))
+str(donnee)
+# les mois sont en format Factor : on les convertit en numeric
+donnee$mois2<-as.numeric(levels(donnee$mois2))[donnee$mois2]
+str(donnee)
+model<-lm(donnee$Freq~donnee$mois2)
+png("reg_mois.png")
+plot(donnee$mois2,donnee$Freq, main="Accidents en fonction des mois", xlab="Mois", ylab="Accidents", col="blue")
+abline(model, col="red", lwd = 3)
+legend("bottomright", lwd=3, legend="Droite de régression linéaire", col="red")
+dev.off()
+summary(model)
+anova(model)
+
+# REGRESSION LINEAIRE ACCIDENTS CUMULES MOIS
+# accidents cumulés : premier point = janvier, deuxième point = janvier+février...
+donnee2<-as.data.frame(cumsum(donnee$Freq))
+donnee2$mois<-c(1:12)
+colnames(donnee2)<-c("Freq", "mois")
+model2<-lm(donnee2$Freq~donnee2$mois)
+png("reg_mois_cumule.png")
+plot(donnee2$mois,donnee2$Freq, main="Accidents cumulés en fonction des mois", xlab="Mois", ylab="Accidents cumulés", col="blue", sub="Exemple: 2=janvier+février, 3=janvier+février+mars")
+abline(model2, col="red", lwd = 3)
+legend("bottomright", lwd=3, legend="Droite de régression linéaire", col="red")
+dev.off()
+summary(model2)
+anova(model2)
+
+#REGRESSION LINEAIRE ACCIDENT SEMAINE
+# apres execution de visualisation des données, on a la variable week qui stocke toutes les semaines
+donnee<-data.frame(table(week))
+str(donnee)
+# les semaines sont en format Factor : on les convertit en numeric
+donnee$week<-as.numeric(levels(donnee$week))[donnee$week]
+str(donnee)
+model<-lm(donnee$Freq~donnee$week)
+png("reg_semaine.png")
+plot(donnee$week,donnee$Freq, main="Accidents en fonction des semaines", xlab="Semaines", ylab="Accidents", col="blue")
+abline(model, col="red", lwd=3)
+dev.off()
+summary(model)
+anova(model)
+
+#REGRESSION LINEAIRE ACCIDENT CUMULES SEMAINE
+# accidents cumulés : premier point = janvier, deuxième point = janvier+février...
+donnee2<-as.data.frame(cumsum(donnee$Freq))
+donnee2$week<-c(0:52)
+colnames(donnee2)<-c("Freq", "week")
+donnee2
+model2<-lm(donnee2$Freq~donnee2$week)
+png("reg_semaine_cumule.png")
+plot(donnee2$week,donnee2$Freq, main="Accidents cumulés en fonction des semaines", xlab="Semaines", ylab="Accidents cumulés", col="blue", sub="Exemple: 1=semaine0+semaine1, 2=semaine0+semaine1+semaine2")
+abline(model2, col="red", lwd = 3)
+legend("bottomright", lwd=3, legend="Droite de régression linéaire", col="red")
+dev.off()
+summary(model2)
+anova(model2)
+
+#TABLEAUX CROISES ET TESTS D'INDEPENDANCE DU CHI2
+
+# condition de validité du khideux
+# Les valeurs de toutes les cases du tableau des effectifs doivent être supérieures à 5
+# Les pourcentages ne sont pas trop proche de zéro ou de 100%
+# Les données doivent être qualitatives
+
+# tableau croisé : Etude des relations entre variables qualitatives
+
+#DESRIPTION GRAVITE + DESCRIPTION MOTIF TRAJET
+t<-table(data$descr_grav,data$descr_motif_traj)
+addmargins(t) # pour avoir la somme
+prop.table(t) # frequence relative
+prop.table(t)*100 # frequence absolue (pourcentage)
+png("mosaicplot_gravite_motif_trajet.png")
+mosaicplot(t,
+           main="Gravité et motif trajet",
+           xlab="Gravité",
+           ylab="Motif trajet",
+           las=1, # labels horizontaux
+           shade=TRUE, # standardized residuals
+           off=10) # espacement entre les blocs
+dev.off()
+result <- chisq.test(t)
+result
+# valeur du khideux : X-squared
+# ddl : df
+
+result$observed # tableau d'origine
+result$expected # tableau d'indépendance ou tableau des effectifs théoriques --> tableau théorique
+result$residuals # tableau des résidus
+result$residuals^2 # tableau des écarts à l'indépendance
+
+#pvalue < 0.05 donc on rejette l'hypothèse d'indépendance --> les deux événements sont liés
+
+
+#http://mehdikhaneboubi.free.fr/stat/co/khi_deux_r.html
+#https://rstudio-pubs-static.s3.amazonaws.com/224337_f0de438bd82e4a769e55e039e33b6a0a.html#manipulation-du-dataframe
+#https://www.statology.org/how-to-read-chi-square-distribution-table/
+
+
+#AGE + LATITUDE
+t<-table(data$age,data$latitude)
+addmargins(t) # pour avoir la somme
+prop.table(t) # frequence relative
+prop.table(t)*100 # frequence absolue (pourcentage)
+result <- chisq.test(t)
+result
+# valeur du khideux : X-squared
+# ddl : df
+
+# p-value > 0.05, on conserve l'hypothèse d'indépendance --> les deux événements sont indépendants
+
+result$observed # tableau d'origine
+result$expected # tableau d'indépendance ou tableau des effectifs théoriques --> tableau théorique
+result$residuals # tableau des résidus
+result$residuals^2 # tableau des écarts à l'indépendance
+
+
+#ANNEE + CODE INSEE
+t<-table(data$an_nais,data$id_code_insee)
+addmargins(t) # pour avoir la somme
+prop.table(t) # frequence relative
+prop.table(t)*100 # frequence absolue (pourcentage)
+result <- chisq.test(t)
+result
+#Warning message: In chisq.test(t) : L’approximation du Chi-2 est peut-être incorrecte
+#mettre simulate.p.value=TRUE dans chisq.test()
+# valeur du khideux : X-squared
+# ddl : df
+
+result$observed # tableau d'origine
+result$expected # tableau d'indépendance ou tableau des effectifs théoriques --> tableau théorique
+result$residuals # tableau des résidus
+result$residuals^2 # tableau des écarts à l'indépendance
+
+#p-value < 0.05 donc on rejette l'hypothèse d'indépendance --> les deux événements sont liés
+
+#DESRIPTION GRAVITE + DESCRIPTION DISPO SECU
+t<-table(data$descr_grav,data$descr_dispo_secu)
+addmargins(t) # pour avoir la somme
+prop.table(t) # frequence relative
+prop.table(t)*100 # frequence absolue (pourcentage)
+png("mosaicplot_gravite_dispo_secu.png", width=1051, height=1051)
+mosaicplot(t,
+           main="Gravité et sécurité",
+           xlab="Gravité",
+           ylab="Sécurité",
+           las=1, # labels horizontaux
+           shade=TRUE, # standardized residuals
+           off=10) # espacement entre les blocs
+dev.off()
+result <- chisq.test(t)
+result
+# valeur du khideux : X-squared
+# ddl : df
+
+result$observed # tableau d'origine
+result$expected # tableau d'indépendance ou tableau des effectifs théoriques --> tableau théorique
+result$residuals # tableau des résidus
+result$residuals^2 # tableau des écarts à l'indépendance
+
+#p-value < 0.05 donc on rejette l'hypothèse d'indépendance --> les deux événements sont liés
+
+
+
+#DESRIPTION PLACE + DESCR MOTIF TRAJET
+t<-table(data$place,data$descr_motif_traj)
+addmargins(t) # pour avoir la somme
+prop.table(t) # frequence relative
+prop.table(t)*100 # frequence absolue (pourcentage)
+png("mosaicplot_place_motif_trajet.png", width=1051, height=1051)
+mosaicplot(t,
+           main="Nombre de places et motif trajet",
+           xlab="Place",
+           ylab="Motif trajet",
+           las=1, # labels horizontaux
+           shade=TRUE, # standardized residuals
+           off=10) # espacement entre les blocs
+dev.off()
+result <- chisq.test(t)
+result
+# valeur du khideux : X-squared
+# ddl : df
+
+result$observed # tableau d'origine
+result$expected # tableau d'indépendance ou tableau des effectifs théoriques --> tableau théorique
+result$residuals # tableau des résidus
+result$residuals^2 # tableau des écarts à l'indépendance
+
+#p-value < 0.05 donc on rejette l'hypothèse d'indépendance --> les deux événements sont liés
+
+
+
+
+#NUMERO VEHICULE + VILLE
+t<-table(data$num_veh,data$ville)
+addmargins(t) # pour avoir la somme
+prop.table(t) # frequence relative
+prop.table(t)*100 # frequence absolue (pourcentage)
+result <- chisq.test(t)
+result
+# valeur du khideux : X-squared
+# ddl : df
+
+result$observed # tableau d'origine
+result$expected # tableau d'indépendance ou tableau des effectifs théoriques --> tableau théorique
+result$residuals # tableau des résidus
+result$residuals^2 # tableau des écarts à l'indépendance
+
+# p-value = 1 > 0.05, on conserve l'hypothèse d'indépendance --> les deux événements sont indépendants
