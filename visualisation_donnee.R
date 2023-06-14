@@ -2,7 +2,9 @@
 library(ggplot2)
 #install.packages("stringr")
 #install.packages("FactoMineR")
-# webshot::install_phantomjs()
+#webshot::install_phantomjs()
+#install.packages("mapview")
+#install.packages("leaflet.extras")
 
 
 # representation graphique : nb accidents en fonction des conditions atmosphériques
@@ -124,6 +126,14 @@ date_reformat<-as.Date(data$date)
 hist(date_reformat, xlab="Mois", ylab="Fréquence d'accidents", main="Moyenne mensuelle des accidents", breaks = c(as.Date("2009-01-01"), as.Date("2009-02-01"), as.Date("2009-03-01"), as.Date("2009-04-01"), as.Date("2009-05-01"), as.Date("2009-06-01"), as.Date("2009-07-01"), as.Date("2009-08-01"), as.Date("2009-09-01"), as.Date("2009-10-01"), as.Date("2009-11-01"), as.Date("2009-12-01"), as.Date("2009-12-31")))
 
 library("raster")
+
+# Création des dossiers
+if(!(dir.exists("map_departement"))){
+  dir.create("map_departement")
+}
+if(!(dir.exists("map_region"))){
+  dir.create("map_region")
+}
 
 ### Création des cartes par départements et exportation en png
 code_insee_char<-as.character(data$id_code_insee)
