@@ -127,7 +127,7 @@ library("raster")
 
 ### Création des cartes par départements et exportation en png
 code_insee_char<-as.character(data$id_code_insee)
-for (i in 10:99){
+for (i in 10:97){
   # Contours administratifs
   filename<-paste("map_departement/map", i, sep="")
   filename<-paste(filename, "png", sep=".")

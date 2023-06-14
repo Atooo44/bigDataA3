@@ -172,6 +172,8 @@ sink("type_collision.txt")
 cat(output)
 sink()
 
+data$departement<-substr(data$id_code_insee, 1, 2)
+
 #### Conversion chr to int
 data$descr_cat_veh<-as.integer(data$descr_cat_veh)
 data$descr_agglo<-as.integer(data$descr_agglo)
@@ -184,4 +186,6 @@ data$descr_grav<-as.integer(data$descr_grav)
 data$descr_motif_traj<-as.integer(data$descr_motif_traj)
 data$descr_type_col<-as.integer(data$descr_type_col)
 data$age<-as.integer(data$age)
+data$departement<-as.integer(data$departement)
 
+write.csv(data, "stat_finale.csv", row.names=FALSE)
