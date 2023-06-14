@@ -169,3 +169,17 @@ for (col_type in col) {
 sink("type_collision.txt")
 cat(output)
 sink()
+
+#### Conversion chr to int
+data$descr_cat_veh<-as.integer(data$descr_cat_veh)
+data$descr_agglo<-as.integer(data$descr_agglo)
+data$descr_athmo<-as.integer(data$descr_athmo)
+data$descr_lum<-as.integer(data$descr_lum)
+data$descr_etat_surf<-as.integer(data$descr_etat_surf)
+data$description_intersection<-as.integer(data$description_intersection)
+data$descr_dispo_secu<-as.integer(data$descr_dispo_secu)
+data$descr_grav<-as.integer(data$descr_grav)
+data$descr_motif_traj<-as.integer(data$descr_motif_traj)
+data$descr_type_col<-as.integer(data$descr_type_col)
+data$age<-as.integer(data$age)
+
