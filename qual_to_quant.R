@@ -329,6 +329,8 @@ for (i in paca){
 dev.off()
 
 
+#CARTE DE CHALEUR
+
 library(mapview)
 library(leaflet)
 library(leaflet.extras)
@@ -341,4 +343,9 @@ map<-leaflet(data) %>%
   )
 map
 mapshot(map, file="heatmap.png", type="png")
+
+#GRAPH PCA
+
+png(file="PCA_graph.png")
 PCA(data[,6:18], graph = TRUE)
+dev.off()
