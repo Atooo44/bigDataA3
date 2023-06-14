@@ -186,6 +186,6 @@ data$descr_grav<-as.integer(data$descr_grav)
 data$descr_motif_traj<-as.integer(data$descr_motif_traj)
 data$descr_type_col<-as.integer(data$descr_type_col)
 data$age<-as.integer(data$age)
-data$departement<-as.integer(data$departement)
+data$departement<-as.character(data$departement)
 
 write.csv(data, "stat_finale.csv", row.names=FALSE)

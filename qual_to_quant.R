@@ -344,8 +344,41 @@ map<-leaflet(data) %>%
 map
 mapshot(map, file="heatmap.png", type="png")
 
-#GRAPH PCA
+#GRAPH
 
 png(file="PCA_graph.png")
 PCA(data[,6:18], graph = TRUE)
 dev.off()
+
+### CARTE DEPARTEMENT
+
+library(leaflet)
+library(sf)
+# Chargement des données des départements
+departements <- st_read("departements-20180101.shp", stringsAsFactors = FALSE)
+accidents_par_departement <- aggregate(data$Num_Acc, by = list(data$departement), FUN = length)
+colnames(accidents_par_departement) <- c("departement", "nombre_accidents")
+departements_accidents <- merge(departements, accidents_par_departement, by.x = "code_insee", by.y = "departement")
+
+bins <- c(0, 50, 100, 250, 500, 1000, 2500, 10000, Inf)
+palette <-colorBin(palette="YlOrRd", domain = departements_accidents$nombre_accidents, bins = bins)
+
+# Création de la carte Leaflet
+carte <- leaflet(data = departements_accidents) %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addPolygons(fillColor = ~palette(nombre_accidents),
+              fillOpacity = 1,
+              color = "#000000",
+              weight = 1,
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE),
+              label = ~paste0("Département ", code_insee, ": ", nombre_accidents, " nombre_accidents")) %>%
+  addLegend("bottomright",
+            title = "Quantité d'accidents",
+            pal = palette,
+            values = ~nombre_accidents,
+            labels = ~nombre_accidents,
+            opacity = 1)
+
+
+# Affichage de la carte
+carte
