@@ -1,6 +1,8 @@
 #install.packages("ggplot2")
 library(ggplot2)
 #install.packages("stringr")
+#install.packages("FactoMineR")
+# webshot::install_phantomjs()
 
 
 # representation graphique : nb accidents en fonction des conditions atmosphériques
@@ -285,4 +287,28 @@ for (i in paca){
   x <- data$longitude[startsWith(code_insee_char, as.character(i))]; y <- data$latitude[startsWith(code_insee_char, as.character(i))]
   points(x,y,col="red",cex=0.5,pch=16)
 }
+dev.off()
+
+#CARTE DE CHALEUR
+
+library(mapview)
+library(leaflet)
+library(leaflet.extras)
+library(FactoMineR)
+map<-leaflet(data) %>%
+  addProviderTiles(providers$CartoDB.DarkMatter) %>%
+  setView(lng = 2.2, lat = 46.2, zoom = 5) %>%
+  addHeatmap(
+    lng = ~longitude, lat = ~latitude,
+    blur = 20, max = 0.05, radius = 15
+  )
+map
+mapshot(map, file="heatmap.png", type="png")
+
+#GRAPH PCA
+
+
+
+png(file="PCA_graph.png")
+PCA(data[,6:18], graph = TRUE)
 dev.off()

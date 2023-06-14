@@ -11,6 +11,8 @@ data$id_code_insee[is.na(data$id_code_insee)] <- 20000
 
 data$an_nais <- as.integer(data$an_nais)
 
+data$an_nais[is.na(data$an_nais)] <- median(data$an_nais, na.rm = TRUE)
+
 data$age <- as.integer(data$age)
 
 # Change les valeurs nulles par la médiane des valeurs de la colonne
