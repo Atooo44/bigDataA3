@@ -23,7 +23,7 @@ graph <- ggplot(data=x, aes(x=Var1, y=Freq)) +  geom_bar(stat="identity", fill="
              x="Surface",
              y="Nombre d'accidents")
 graph
-ggsave("description_surface.png", graph, bg="white", scale=2)
+ggsave("description_surface.png", graph, bg="white", scale=2.5)
 
 # representation graphique : nb accidents selon la gravité
 
@@ -72,7 +72,10 @@ ggsave("accidents_departements.png", graph, bg="white", scale=4)
 
 #Construire des séries chronologiques sur l’évolution du nombre d’accidents par mois et semaines sur l’ensemble de la période
 
-# l'année est uniquement 2009 donc on peut passer par cette méthode
+# si il y a plusieurs années : isoler les différentes années dans des tableaux différents, et extraire le mois uniquement
+# compter le nombre d'occurrences : on a donc des tableaux de mois correspondant à une année avec le nombre d'accidents
+# on fusionne ces tableaux et on affiche
+# pas utilisé ici donc vu qu'il n'y a qu'une seule année : on recupere juste les mois et occurrences
 
 # recuperation des mois, jours et année
 date_decoupe <- str_split(data$date, " ")

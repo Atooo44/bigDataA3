@@ -20,7 +20,7 @@ data$age[is.na(data$age)] <- median(data$age, na.rm = TRUE)
 
 data$place <- as.integer(data$place)
 
-data$place[is.na(data$place)] <- median(data$place, na.rm = TRUE)
+data$place[is.na(data$place)] <- 0
 
 #### DESCR_AGGLO
 agglo=levels(factor(data$descr_agglo))
