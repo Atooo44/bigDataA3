@@ -346,8 +346,17 @@ mapshot(map, file="heatmap.png", type="png")
 
 #GRAPH
 
-png(file="PCA_graph.png")
-PCA(data[,6:18], graph = TRUE)
+png(file="PCA_global.png")
+PCA(data[,6:21], graph = TRUE)
+dev.off()
+png(file="PCA_1.png")
+PCA(data[,6:10], graph = TRUE)
+dev.off()
+png(file="PCA_2.png")
+PCA(data[,11:15], graph = TRUE)
+dev.off()
+png(file="PCA_3.png")
+PCA(data[,16:21], graph = TRUE)
 dev.off()
 
 ### CARTE DEPARTEMENT
@@ -377,6 +386,47 @@ carte <- leaflet(data = departements_accidents) %>%
             pal = palette,
             values = ~nombre_accidents,
             labels = ~nombre_accidents,
+            opacity = 1)
+
+
+# Affichage de la carte interactive
+carte
+
+
+
+
+### CARTE DEPARTEMENT TAUX DE GRAVITE DES ACCIDENTS
+
+library(leaflet)
+library(sf)
+# Chargement des données des départements
+departements <- st_read("departements-20180101.shp", stringsAsFactors = FALSE)
+accidents_par_departement <- aggregate(data$Num_Acc, by = list(data$departement), FUN = length)
+colnames(accidents_par_departement) <- c("departement", "nombre_accidents")
+departements_accidents <- merge(departements, accidents_par_departement, by.x = "code_insee", by.y = "departement")
+
+sum<-0
+for (i in departements_accidents$nombre_accidents){
+  sum<-sum+i
+}
+
+bins <- c(0, 0.05, 0.1, 0.2, 0.3, 0.5, 1, 5, Inf)
+palette <-colorBin(palette="YlOrRd", domain = departements_accidents$nombre_accidents*100/sum, bins = bins)
+
+# Création de la carte Leaflet
+carte <- leaflet(data = departements_accidents) %>%
+  addProviderTiles("CartoDB.Positron") %>%
+  addPolygons(fillColor = ~palette(nombre_accidents*100/sum),
+              fillOpacity = 1,
+              color = "#000000",
+              weight = 1,
+              highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE),
+              label = ~paste0("Département ", code_insee, ": ", round(nombre_accidents*100/sum,2), " % d'accidents graves")) %>%
+  addLegend("bottomright",
+            title = "Taux de gravité des accidents",
+            pal = palette,
+            values = ~nombre_accidents*100/sum,
+            labels = ~nombre_accidents*100/sum,
             opacity = 1)
 
 
