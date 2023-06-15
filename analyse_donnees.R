@@ -33,6 +33,18 @@ legend("bottomright", lwd=3, legend="Droite de régression linéaire", col="red"
 dev.off()
 summary(model2)
 anova(model2)
+coef(model2) # extrait les coefficients estimés
+confint(model2) # affiche l'intervalle de confiance à 95% pour les coefficients estimés
+fitted(model2) # extrait les valeurs prédites
+resid(model2) # extrait les résidus (valeur prédite - valeur réelle)
+# residus en ordonnee
+res<-resid(model2)
+plot(res,main="Résidus")
+abline(h=0,col="red")
+# residus vs. valeurs prédites
+plot(fitted(model2),res,main="Residuals vs. fitted")
+abline(h=0,col="red")
+
 
 #REGRESSION LINEAIRE ACCIDENT SEMAINE
 # apres execution de visualisation des données, on a la variable week qui stocke toutes les semaines
@@ -63,6 +75,17 @@ legend("bottomright", lwd=3, legend="Droite de régression linéaire", col="red"
 dev.off()
 summary(model2)
 anova(model2)
+coef(model2) # extrait les coefficients estimés
+confint(model2) # affiche l'intervalle de confiance à 95% pour les coefficients estimés
+fitted(model2) # extrait les valeurs prédites
+resid(model2) # extrait les résidus (valeur prédite - valeur réelle)
+# residus en ordonnee
+res<-resid(model2)
+plot(res,main="Résidus")
+abline(h=0,col="red")
+# residus vs. valeurs prédites
+plot(fitted(model2),res,main="Residuals vs. fitted")
+abline(h=0,col="red")
 
 #TABLEAUX CROISES ET TESTS D'INDEPENDANCE DU CHI2
 
