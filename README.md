@@ -29,6 +29,7 @@ L'ordre d'éxécution est le suivant :
 - `analyse_donnees.R`
 
 2. **Suivez** les instructions affichées à l'écran, le cas échéant. Il est possible que des packages supplémentaires nécessitent une installation de votre part.
+3. Un export est généré au nom de `stat_finale.csv` lorsque le processus de préparation des données est terminé. 
 ---
 
 C'est tout ! Vous devriez maintenant pouvoir exécuter notre projet BigData en suivant les étapes mentionnées ci-dessus. Bonne utilisation !
