@@ -22,6 +22,19 @@ data$place <- as.integer(data$place)
 
 data$place[is.na(data$place)] <- 0
 
+### Inversion  lat/long pour les accidents hors du territoire français
+for (i in data$latitude){
+  lat<-i
+  if (i<1 | i>8){
+    lon<-data$longitude[data$latitude==i]
+    index_lon<-which(data$longitude==lon[1])
+    for (j in index_lon){
+      data$latitude[j]<-data$longitude[j]
+      data$longitude[j]<-lat
+    }
+  }
+}
+
 #### DESCR_AGGLO
 agglo=levels(factor(data$descr_agglo))
 
