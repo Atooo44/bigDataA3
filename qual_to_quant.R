@@ -380,5 +380,5 @@ carte <- leaflet(data = departements_accidents) %>%
             opacity = 1)
 
 
-# Affichage de la carte
+# Affichage de la carte interactive
 carte
